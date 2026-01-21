@@ -111,37 +111,6 @@ body {
   transform: translateY(0);
 }
 
-<<<<<<< HEAD:src/assets/styles/index.css
-/* Animations for App.jsx components */
-@keyframes slideInFromBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(2rem);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-in {
-  animation-duration: 0.7s;
-  animation-timing-function: ease-out;
-  animation-fill-mode: forwards;
-}
-
-.slide-in-from-bottom {
-  animation-name: slideInFromBottom;
-}
-
-.duration-1000 {
-  animation-duration: 1s;
-}
-
-.delay-200 {
-  animation-delay: 200ms;
-=======
 /* Custom Animations */
 @keyframes shake {
 
@@ -513,5 +482,4 @@ body {
   transform: translateX(-100%);
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   animation: shimmer 2s infinite;
->>>>>>> 3ab6c4b980fbbf5f811c0432ffd7356a2cb4c302:src/index.css
 }
