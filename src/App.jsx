@@ -9,7 +9,9 @@ import jahraImg from './assets/images/jahra.jpeg';
 import alinImg from './assets/images/alin.jpeg';
 import timImg from './assets/images/tim.jpeg';
 import dashboardImg from './assets/images/dashboard_perpus.png';
+import brainstormingImg from './assets/images/brainstorming.png';
 import demoPptx from './assets/documents/tugas presentasi website perpustakaan dev.pptx';
+import proposalPdf from './assets/documents/format presentasi perpustakaan.pdf';
 
 
 
@@ -90,6 +92,21 @@ const Icons = {
   TikTok: ({ size = 20, className = '' }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+    </svg>
+  ),
+  Book: ({ size = 20, className = '' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+    </svg>
+  ),
+  Pdf: ({ size = 20, className = '' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <path d="M9 13v-1h6v1" />
+      <path d="M12 18v-6" />
+      <path d="M9 17h6" />
     </svg>
   )
 };
@@ -511,36 +528,64 @@ const Presentation = () => {
             <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
               <div className="space-y-6">
                 <div className="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center border border-red-500/20 text-red-500 mb-4">
-                  <Icons.FileText size={32} />
+                  <Icons.Book size={32} />
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold text-white">
                   Unduh Dokumen <br />
                   <span className="text-red-500">Presentasi & Proposal</span>
                 </h2>
                 <p className="text-gray-400 leading-relaxed">
-                  Pelajari lebih lanjut tentang detail teknis, roadmap pengembangan, dan fitur lengkap sistem perpustakaan kami dalam dokumen presentasi resmi.
+                  Dokumentasi lengkap mengenai pengembangan Sistem Informasi Perpustakaan Digital. Unduh materi presentasi tim dan format standar dokumen yang kami gunakan.
                 </p>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4">
                   <a
                     href={demoPptx}
                     download="Presentasi_Perpus_TimDev.pptx"
                     className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition shadow-lg shadow-red-600/30 flex items-center gap-2"
                   >
                     <Icons.Download size={18} />
-                    Download PPTX
+                    Materi Presentasi
+                  </a>
+                  <a
+                    href={demoPptx}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold rounded-lg transition border border-gray-700 flex items-center gap-2 group"
+                  >
+                    <Icons.FileText size={18} className="group-hover:text-red-500 transition" />
+                    Preview Format
                   </a>
                 </div>
               </div>
 
-              <div className="relative">
-                <div className="bg-zinc-800 rounded-xl p-6 border border-gray-700 transform rotate-2 hover:rotate-0 transition duration-500 shadow-2xl">
+              <div className="relative flex justify-center md:justify-end h-64 md:h-auto items-center">
+                {/* Proposal Card (Behind) */}
+                <div className="absolute top-0 right-0 md:top-4 md:right-8 bg-zinc-800 rounded-xl p-6 border border-gray-700 transform rotate-12 scale-90 opacity-60 z-0 w-64 transition duration-500 hover:rotate-6 hover:opacity-80">
+                  <div className="flex items-center gap-4 mb-4 border-b border-gray-700 pb-4">
+                    <div className="w-10 h-10 rounded bg-blue-500/20 flex items-center justify-center text-blue-500">
+                      <Icons.FileText size={20} />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold text-sm">Presentasi_Dev.pptx</h4>
+                      <p className="text-xs text-gray-500">Click to Preview</p>
+                    </div>
+                  </div>
+                  <div className="space-y-2 opacity-50">
+                    <div className="h-2 bg-gray-700 rounded w-full" />
+                    <div className="h-2 bg-gray-700 rounded w-3/4" />
+                    <div className="h-2 bg-gray-700 rounded w-5/6" />
+                  </div>
+                </div>
+
+                {/* Presentation Card (Front) */}
+                <div className="relative bg-zinc-800 rounded-xl p-6 border border-gray-700 transform -rotate-3 hover:rotate-0 transition duration-500 shadow-2xl z-10 w-72">
                   <div className="flex items-center gap-4 mb-6 border-b border-gray-700 pb-4">
                     <div className="w-10 h-10 rounded bg-red-500/20 flex items-center justify-center text-red-500">
                       <Icons.FileText size={20} />
                     </div>
                     <div>
-                      <h4 className="text-white font-bold">Presentasi_Web.pptx</h4>
-                      <p className="text-xs text-gray-500">5.2 MB • Updated Today</p>
+                      <h4 className="text-white font-bold">Materi_Presentasi.pptx</h4>
+                      <p className="text-xs text-gray-500">Sistem Perpustakaan</p>
                     </div>
                   </div>
                   <div className="space-y-3">
@@ -555,6 +600,65 @@ const Presentation = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </FadeInSection>
+      </div>
+    </section>
+  );
+};
+
+// ========== DOCUMENTATION COMPONENT ==========
+const Documentation = () => {
+  const photos = [
+    {
+      src: timImg,
+      title: "Tim Development",
+      desc: "Foto bersama seluruh tim pengembang aplikasi perpustakaan."
+    },
+    {
+      src: dashboardImg,
+      title: "Preview Sistem",
+      desc: "Tampilan dashboard dashboard utama sistem perpustakaan digital."
+    },
+    {
+      src: brainstormingImg,
+      title: "Brainstorming",
+      desc: "Sesi diskusi dan perencanaan fitur bersama tim."
+    }
+  ];
+
+  return (
+    <section id="documentation" className="py-24 px-4 sm:px-6 lg:px-8 bg-zinc-900/50">
+      <div className="max-w-7xl mx-auto">
+        <FadeInSection>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Galeri <span className="text-red-500">Dokumentasi</span>
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Cuplikan momen dan progres pengerjaan proyek Sistem Informasi Perpustakaan Digital.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {photos.map((photo, idx) => (
+              <div key={idx} className="group relative overflow-hidden rounded-2xl border border-gray-800 bg-zinc-900">
+                <div className="aspect-video overflow-hidden">
+                  <img
+                    src={photo.src}
+                    alt={photo.title}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <Icons.Sparkles className="text-red-500 w-12 h-12 animate-pulse" />
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">{photo.title}</h3>
+                  <p className="text-gray-400 text-sm">{photo.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </FadeInSection>
       </div>
@@ -607,6 +711,7 @@ export default function App() {
         <Team />
         <Portfolio />
         <Presentation />
+        <Documentation />
         <Contact />
       </main>
     </div>
