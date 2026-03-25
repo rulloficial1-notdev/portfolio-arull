@@ -1,4 +1,15 @@
 /* App-specific styles */
+:root {
+  scroll-behavior: smooth;
+}
+
 .App {
-    text-align: center;
+  text-align: center;
+}
+
+.progress {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: #0ea5e9;
+  transition: width 0.6s ease;
 }

@@ -40,7 +40,7 @@ const TypewriterEffect = ({ words, wait = 3000 }) => {
     }, [subIndex, index, reverse, words, wait]);
 
     return (
-        <span className="bg-gradient-to-r from-red-500 via-red-600 to-orange-500 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-400 bg-clip-text text-transparent">
             {words[index].substring(0, subIndex)}
             <span className={`text-white ml-1 ${blink ? 'opacity-100' : 'opacity-0'}`}>|</span>
         </span>

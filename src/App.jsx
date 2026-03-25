@@ -6,12 +6,10 @@ import arullImg from './assets/images/arull.jpeg';
 import natiImg from './assets/images/nati.jpeg';
 import nijamImg from './assets/images/nijam.jpeg';
 import jahraImg from './assets/images/jahra.jpeg';
-import alinImg from './assets/images/alin.jpeg';
 import timImg from './assets/images/tim.jpeg';
 import dashboardImg from './assets/images/dashboard_perpus.png';
 import brainstormingImg from './assets/images/brainstorming.png';
-import demoPptx from './assets/documents/tugas presentasi website perpustakaan dev.pptx';
-import proposalPdf from './assets/documents/format presentasi perpustakaan.pdf';
+import presentationFile from './assets/documents/tugas presentasi website perpustakaan dev.pptx';
 
 
 
@@ -128,9 +126,10 @@ const FadeInSection = ({ children, delay = 0 }) => {
       { threshold: 0.1 }
     );
 
-    if (domRef.current) observer.observe(domRef.current);
+    const node = domRef.current;
+    if (node) observer.observe(node);
     return () => {
-      if (domRef.current) observer.unobserve(domRef.current);
+      if (node) observer.unobserve(node);
     };
   }, [delay]);
 
@@ -142,7 +141,7 @@ const FadeInSection = ({ children, delay = 0 }) => {
 };
 
 // ========== NAVBAR COMPONENT ==========
-const Navbar = () => {
+const Navbar = ({ darkMode, setDarkMode }) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -154,27 +153,36 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 h-20 bg-black/85 backdrop-blur-3xl z-1000 border-b border-gray-700/50 transition-all duration-300 ${scrolled ? 'shadow-lg border-red-500/20' : ''}`}>
+    <nav className={`fixed top-0 left-0 right-0 h-20 ${darkMode ? 'bg-slate-900/90' : 'bg-black/85'} backdrop-blur-3xl z-1000 border-b border-gray-700/50 transition-all duration-300 ${scrolled ? 'shadow-lg border-sky-500/20' : ''}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 flex items-center justify-center bg-zinc-900 border border-red-500/20 rounded-lg text-red-500">
+          <div className="w-10 h-10 flex items-center justify-center bg-zinc-900 border border-sky-500/20 rounded-lg text-sky-500">
             <Icons.Code size={20} />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent leading-none">DEV TEAM</span>
+            <span className="text-lg font-bold bg-gradient-to-r from-sky-400 to-blue-600 bg-clip-text text-transparent leading-none">DEV TEAM</span>
             <span className="text-xs text-gray-400 font-medium tracking-wider">SMKN 11 KAB. TANGERANG</span>
           </div>
         </div>
         <ul className="hidden md:flex gap-8 items-center">
-          <li><a href="#home" className="text-sm font-bold text-gray-400 hover:text-red-500 transition">Beranda</a></li>
-          <li><a href="#about" className="text-sm font-bold text-gray-400 hover:text-red-500 transition">Tentang Kami</a></li>
-          <li><a href="#portfolio" className="text-sm font-bold text-gray-400 hover:text-red-500 transition">Proyek</a></li>
-          <li><a href="#team" className="text-sm font-bold text-gray-400 hover:text-red-500 transition">Tim</a></li>
-          <li><a href="#presentation" className="text-sm font-bold text-gray-400 hover:text-red-500 transition">Presentasi</a></li>
+          <li><a href="#home" className="text-sm font-bold text-gray-400 hover:text-sky-500 transition">Beranda</a></li>
+          <li><a href="#about" className="text-sm font-bold text-gray-400 hover:text-sky-500 transition">Tentang Kami</a></li>
+          <li><a href="#portfolio" className="text-sm font-bold text-gray-400 hover:text-sky-500 transition">Proyek</a></li>
+          <li><a href="#team" className="text-sm font-bold text-gray-400 hover:text-sky-500 transition">Tim</a></li>
+          <li><a href="#presentation" className="text-sm font-bold text-gray-400 hover:text-sky-500 transition">Presentasi</a></li>
           <li>
-            <a href="#contact" className="px-4 py-2 bg-red-500 text-white text-sm font-bold rounded-lg hover:bg-red-600 transition shadow-lg shadow-red-500/25">
+            <a href="#contact" className="px-4 py-2 bg-sky-500 text-white text-sm font-bold rounded-lg hover:bg-sky-600 transition shadow-lg shadow-sky-500/25">
               Hubungi Kami
             </a>
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={() => setDarkMode(!darkMode)}
+              className="px-4 py-2 text-sm font-bold text-gray-200 bg-slate-700/80 rounded-lg hover:bg-slate-600 transition"
+            >
+              {darkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
           </li>
         </ul>
       </div>
@@ -223,7 +231,7 @@ const TypewriterEffect = ({ words, wait = 3000 }) => {
   }, [subIndex, index, reverse, words, wait]);
 
   return (
-    <span className="bg-gradient-to-r from-red-500 via-red-600 to-orange-500 bg-clip-text text-transparent">
+    <span className="bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
       {words[index].substring(0, subIndex)}
       <span className={`text-white ml-1 ${blink ? 'opacity-100' : 'opacity-0'}`}>|</span>
     </span>
@@ -234,9 +242,9 @@ const TypewriterEffect = ({ words, wait = 3000 }) => {
 const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-black to-red-900/10 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500/20 rounded-full blur-[100px] -z-10 animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-sky-900/20 pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-500/20 rounded-full blur-[100px] -z-10 animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-400/20 rounded-full blur-[100px] -z-10" />
 
       {/* Floating Elements Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -246,10 +254,10 @@ const Hero = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center relative z-10">
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom duration-1000">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/80 border border-red-500/30 rounded-full mx-auto backdrop-blur-sm hover:border-red-500/60 transition cursor-default">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/80 border border-sky-500/30 rounded-full mx-auto backdrop-blur-sm hover:border-sky-500/60 transition cursor-default">
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
             </span>
             <span className="text-sm font-medium text-gray-300">Tim Pengembang Perpustakaan Digital</span>
           </div>
@@ -264,7 +272,7 @@ const Hero = () => {
           </p>
 
           <div className="flex justify-center gap-4 pt-4">
-            <a href="#portfolio" className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-red-500/20 transition transform hover:-translate-y-1 flex items-center gap-2">
+            <a href="#portfolio" className="px-8 py-4 bg-gradient-to-r from-sky-600 to-blue-700 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-sky-500/20 transition transform hover:-translate-y-1 flex items-center gap-2">
               <Icons.Sparkles size={18} />
               Lihat Karya Kami
             </a>
@@ -289,9 +297,9 @@ const About = () => {
             <div className="space-y-8">
               <div>
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                  Tentang <span className="text-red-500">Kami</span>
+                  Tentang <span className="text-sky-400">Kami</span>
                 </h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-red-500 to-transparent rounded-full" />
+                <div className="h-1 w-24 bg-gradient-to-r from-sky-400 to-transparent rounded-full" />
               </div>
 
               <div className="space-y-6 text-lg text-gray-300">
@@ -309,14 +317,14 @@ const About = () => {
                   <p className="text-gray-400 text-sm">Dedikasi untuk Sekolah</p>
                 </div>
                 <div className="p-6 bg-black/40 border border-gray-800 rounded-xl">
-                  <h3 className="text-3xl font-bold text-red-500 mb-1">24/7</h3>
+                  <h3 className="text-3xl font-bold text-sky-400 mb-1">24/7</h3>
                   <p className="text-gray-400 text-sm">Akses Sistem Digital</p>
                 </div>
               </div>
             </div>
 
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl transform rotate-3 opacity-20 blur-xl filter" />
+              <div className="absolute inset-0 bg-gradient-to-r from-sky-500 to-blue-500 rounded-2xl transform rotate-3 opacity-20 blur-xl filter" />
               <img
                 src={timImg}
                 alt="Working Team"
@@ -341,14 +349,14 @@ const Portfolio = () => {
         <FadeInSection>
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">
-              Proyek <span className="text-red-500">Unggulan</span>
+              Proyek <span className="text-sky-500">Unggulan</span>
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
               Sistem terintegrasi yang menjadi jantung layanan perpustakaan digital sekolah.
             </p>
           </div>
 
-          <div className="bg-zinc-900 border border-gray-800 rounded-3xl overflow-hidden hover:border-red-500/30 transition duration-500 shadow-2xl">
+          <div className="bg-zinc-900 border border-gray-800 rounded-3xl overflow-hidden hover:border-sky-500/30 transition duration-500 shadow-2xl">
             <div className="grid lg:grid-cols-2 gap-0">
               {/* Image Section */}
               <div className="relative h-64 lg:h-auto overflow-hidden group">
@@ -363,7 +371,7 @@ const Portfolio = () => {
               {/* Content Section */}
               <div className="p-8 md:p-12 flex flex-col justify-center space-y-6">
                 <div>
-                  <div className="inline-block px-3 py-1 mb-4 text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 rounded-full">
+                  <div className="inline-block px-3 py-1 mb-4 text-xs font-bold text-sky-500 bg-sky-500/10 border border-sky-500/20 rounded-full">
                     Versi 2.0 Released
                   </div>
                   <h3 className="text-3xl font-bold text-white mb-2">
@@ -376,7 +384,7 @@ const Portfolio = () => {
 
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center text-red-500">
+                  <div className="mt-1 w-5 h-5 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-500">
                       <Icons.ArrowRight size={12} />
                     </div>
                     <div>
@@ -385,7 +393,7 @@ const Portfolio = () => {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center text-red-500">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-500">
                       <Icons.ArrowRight size={12} />
                     </div>
                     <div>
@@ -394,7 +402,7 @@ const Portfolio = () => {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center text-red-500">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-500">
                       <Icons.ArrowRight size={12} />
                     </div>
                     <div>
@@ -409,7 +417,7 @@ const Portfolio = () => {
                     href="http://perpustakaan-smk11.pages.dev"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition shadow-lg shadow-red-600/30 transform hover:-translate-y-1"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-sky-600 hover:bg-blue-700 text-white font-bold rounded-xl transition shadow-lg shadow-sky-600/30 transform hover:-translate-y-1"
                   >
                     <Icons.ExternalLink size={20} />
                     Kunjungi Website
@@ -459,7 +467,7 @@ const Team = () => {
         <FadeInSection>
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">
-              Tim <span className="text-red-500">Hebat Kami</span>
+              Tim <span className="text-sky-500">Hebat Kami</span>
             </h2>
             <p className="text-gray-400">
               Orang-orang berdedikasi dibalik layar yang membuat segalanya menjadi mungkin.
@@ -471,10 +479,10 @@ const Team = () => {
               <div key={idx} className="group relative">
                 <div className="relative overflow-hidden rounded-2xl aspect-square mb-4">
                   {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-red-900/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 flex flex-col justify-end p-6">
+                  <div className="absolute inset-0 bg-gradient-to-t from-sky-900/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 flex flex-col justify-end p-6">
                     <div className="transform translate-y-4 group-hover:translate-y-0 transition duration-300">
                       <p className="text-white font-bold text-lg">{member.name}</p>
-                      <p className="text-red-200 text-sm mb-4">{member.role}</p>
+                      <p className="text-sky-200 text-sm mb-4">{member.role}</p>
 
                       {/* Social Icons */}
                       <div className="flex gap-3">
@@ -505,7 +513,7 @@ const Team = () => {
                 {/* Default text below (fades out on hover) */}
                 <div className="text-center group-hover:opacity-0 transition duration-300">
                   <h3 className="text-white font-bold text-lg">{member.name}</h3>
-                  <p className="text-red-500 text-sm">{member.role}</p>
+                  <p className="text-sky-400 text-sm">{member.role}</p>
                 </div>
               </div>
             ))}
@@ -522,37 +530,37 @@ const Presentation = () => {
     <section id="presentation" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         <FadeInSection>
-          <div className="relative bg-zinc-900 rounded-3xl p-8 md:p-16 border border-red-500/30 overflow-hidden">
-            <div className="absolute top-0 right-0 p-32 bg-red-600/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+          <div className="relative bg-zinc-900 rounded-3xl p-8 md:p-16 border border-sky-500/30 overflow-hidden">
+            <div className="absolute top-0 right-0 p-32 bg-sky-600/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
 
             <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
               <div className="space-y-6">
-                <div className="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center border border-red-500/20 text-red-500 mb-4">
+                <div className="w-16 h-16 bg-sky-500/10 rounded-2xl flex items-center justify-center border border-sky-500/20 text-sky-500 mb-4">
                   <Icons.Book size={32} />
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold text-white">
                   Unduh Dokumen <br />
-                  <span className="text-red-500">Presentasi & Proposal</span>
+                  <span className="text-sky-400">Presentasi & Proposal</span>
                 </h2>
                 <p className="text-gray-400 leading-relaxed">
                   Dokumentasi lengkap mengenai pengembangan Sistem Informasi Perpustakaan Digital. Unduh materi presentasi tim dan format standar dokumen yang kami gunakan.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <a
-                    href={demoPptx}
+                    href={presentationFile}
                     download="Presentasi_Perpus_TimDev.pptx"
-                    className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition shadow-lg shadow-red-600/30 flex items-center gap-2"
+                    className="px-6 py-3 bg-sky-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-lg shadow-sky-600/30 flex items-center gap-2"
                   >
                     <Icons.Download size={18} />
                     Materi Presentasi
                   </a>
                   <a
-                    href={demoPptx}
+                    href={presentationFile}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold rounded-lg transition border border-gray-700 flex items-center gap-2 group"
                   >
-                    <Icons.FileText size={18} className="group-hover:text-red-500 transition" />
+                    <Icons.FileText size={18} className="group-hover:text-sky-400 transition" />
                     Preview Format
                   </a>
                 </div>
@@ -580,7 +588,7 @@ const Presentation = () => {
                 {/* Presentation Card (Front) */}
                 <div className="relative bg-zinc-800 rounded-xl p-6 border border-gray-700 transform -rotate-3 hover:rotate-0 transition duration-500 shadow-2xl z-10 w-72">
                   <div className="flex items-center gap-4 mb-6 border-b border-gray-700 pb-4">
-                    <div className="w-10 h-10 rounded bg-red-500/20 flex items-center justify-center text-red-500">
+                    <div className="w-10 h-10 rounded bg-sky-500/20 flex items-center justify-center text-sky-500">
                       <Icons.FileText size={20} />
                     </div>
                     <div>
@@ -595,7 +603,7 @@ const Presentation = () => {
                     <div className="h-2 bg-gray-700 rounded w-full" />
                   </div>
                   <div className="mt-6 flex justify-end">
-                    <span className="text-xs text-red-400 font-bold hover:underline cursor-pointer">Preview Document →</span>
+                    <span className="text-xs text-sky-400 font-bold hover:underline cursor-pointer">Preview Document →</span>
                   </div>
                 </div>
               </div>
@@ -633,7 +641,7 @@ const Documentation = () => {
         <FadeInSection>
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">
-              Galeri <span className="text-red-500">Dokumentasi</span>
+              Galeri <span className="text-sky-500">Dokumentasi</span>
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
               Cuplikan momen dan progres pengerjaan proyek Sistem Informasi Perpustakaan Digital.
@@ -650,7 +658,7 @@ const Documentation = () => {
                     className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
                   />
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                    <Icons.Sparkles className="text-red-500 w-12 h-12 animate-pulse" />
+                    <Icons.Sparkles className="text-sky-500 w-12 h-12 animate-pulse" />
                   </div>
                 </div>
                 <div className="p-6">
@@ -667,33 +675,155 @@ const Documentation = () => {
 };
 
 // ========== CONTACT COMPONENT ==========
+const Skills = () => {
+  const skills = [
+    { name: 'HTML', level: 90 },
+    { name: 'CSS', level: 88 },
+    { name: 'JavaScript', level: 82 },
+    { name: 'React', level: 80 },
+    { name: 'Tailwind', level: 85 },
+    { name: 'UX/UI', level: 75 }
+  ];
+
+  return (
+    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 bg-zinc-900/20">
+      <div className="max-w-7xl mx-auto">
+        <FadeInSection>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white">Keterampilan <span className="text-sky-500">Teknis</span></h2>
+            <p className="text-gray-400 mt-3">Apa yang kami kuasai untuk proyek Anda.</p>
+          </div>
+          <div className="space-y-4">
+            {skills.map((skill, idx) => (
+              <div key={idx}>
+                <div className="flex justify-between text-sm text-gray-300 font-medium mb-1">
+                  <span>{skill.name}</span>
+                  <span>{skill.level}%</span>
+                </div>
+                <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                  <div className="h-full bg-sky-500 transition-all" style={{ width: `${skill.level}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </FadeInSection>
+      </div>
+    </section>
+  );
+};
+
+const CaseStudies = () => {
+  const cases = [
+    {
+      title: 'Perpustakaan Digital SMKN11',
+      summary: 'Full-stack app berbasis Next.js + Firebase untuk manajemen koleksi buku, peminjaman, dan analytics.',
+      tech: ['React', 'Firebase', 'Tailwind', 'API']
+    },
+    {
+      title: 'Sistem Absensi QR',
+      summary: 'Aplikasi mobile-friendly berbasis QR code untuk absensi siswa, integrasi data realtime.',
+      tech: ['React', 'Express', 'MongoDB', 'QR Scanner']
+    },
+    {
+      title: 'Site Showcase Data',
+      summary: 'Website responsif untuk showcase karya, dilengkapi filter dan animasi interaktif.',
+      tech: ['React', 'CSS Animations', 'SEO', 'Accessibility']
+    }
+  ];
+
+  return (
+    <section id="casestudies" className="py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <FadeInSection>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white">Case Studies <span className="text-sky-500">Proyek</span></h2>
+            <p className="text-gray-400 mt-3">Detail pendekatan dan teknologi yang dipilih.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            {cases.map((item, idx) => (
+              <article key={idx} className="bg-zinc-900/50 border border-gray-800 rounded-2xl p-6 hover:border-sky-500/60 transition">
+                <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
+                <p className="text-gray-300 mb-4">{item.summary}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {item.tech.map((t, i) => (
+                    <span key={i} className="px-3 py-1 text-xs font-semibold text-sky-300 border border-sky-500/40 rounded-full">{t}</span>
+                  ))}
+                </div>
+                <a href="#contact" className="text-sky-400 hover:text-blue-300 font-semibold">Hubungi untuk detail →</a>
+              </article>
+            ))}
+          </div>
+        </FadeInSection>
+      </div>
+    </section>
+  );
+};
+
+const Testimonials = () => {
+  const notes = [
+    {
+      name: 'Bu Ratna (Guru RPL)',
+      role: 'Pembimbing',
+      quote: 'Tim sangat responsif dan terstruktur. Website lebih ringan dan mudah dipelajari siswa.'
+    },
+    {
+      name: 'Pak Agus (Kepala Perpustakaan)',
+      role: 'Stakeholder',
+      quote: 'Fitur carousel terbaru meningkatkan engagement, dan sistem absensi QR sangat andal.'
+    },
+    {
+      name: 'Siswa 12RPL',
+      role: 'User',
+      quote: 'Navigasi mudah, tampilan modern, dan konten proyek inspiratif. Saya senang belajar disini.'
+    }
+  ];
+
+  return (
+    <section id="testimonials" className="py-24 px-4 sm:px-6 lg:px-8 bg-zinc-900/30">
+      <div className="max-w-7xl mx-auto">
+        <FadeInSection>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white">Testimoni <span className="text-sky-500">Pengguna</span></h2>
+            <p className="text-gray-400 mt-3">Pendapat nyata dari guru dan pengguna proyek.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {notes.map((item, idx) => (
+              <div key={idx} className="bg-zinc-900 border border-gray-800 rounded-2xl p-6 text-left">
+                <p className="text-gray-300 mb-4">“{item.quote}”</p>
+                <p className="text-white font-semibold">{item.name}</p>
+                <p className="text-sky-300 text-sm">{item.role}</p>
+              </div>
+            ))}
+          </div>
+        </FadeInSection>
+      </div>
+    </section>
+  );
+};
+
 const Contact = () => {
   return (
     <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 border-t border-gray-800/50">
-      <div className="max-w-4xl mx-auto text-center">
+      <div className="max-w-4xl mx-auto">
         <FadeInSection>
-          <div className="space-y-8">
-            <h2 className="text-4xl font-bold text-white">
-              Siap Memulai <span className="text-red-500">Kolaborasi?</span>
-            </h2>
-            <p className="text-gray-400 max-w-xl mx-auto">
-              Hubungi tim kami untuk konsultasi pengembangan sistem perpustakaan atau proyek digital lainnya.
-            </p>
-            <div className="flex justify-center gap-6">
-              <a href="#" className="p-4 bg-zinc-800 rounded-full text-gray-400 hover:text-white hover:bg-red-600 transition duration-300">
-                <Icons.Instagram size={24} />
-              </a>
-              <a href="#" className="p-4 bg-zinc-800 rounded-full text-gray-400 hover:text-white hover:bg-blue-600 transition duration-300">
-                <Icons.LinkedIn size={24} />
-              </a>
-              <a href="mailto:team@smkn11kabtangerang.sch.id" className="p-4 bg-zinc-800 rounded-full text-gray-400 hover:text-white hover:bg-red-600 transition duration-300">
-                <Icons.ExternalLink size={24} />
-              </a>
+          <div className="grid gap-12 lg:grid-cols-2">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold text-white">Siap Memulai <span className="text-sky-500">Kolaborasi?</span></h2>
+              <p className="text-gray-400">Isi form di sebelah untuk minta demo dan info pengembangan lebih lanjut.</p>
+              <div className="space-y-3 text-gray-300 text-sm">
+                <p><strong>Email:</strong> team@smkn11kabtangerang.sch.id</p>
+                <p><strong>Telepon:</strong> 0812-3456-7890</p>
+                <p><strong>Lokasi:</strong> SMKN 11 Kabupaten Tangerang</p>
+              </div>
             </div>
-            <p className="text-sm text-gray-500 pt-8">
-              &copy; {new Date().getFullYear()} Tim Developer Web SMKN 11 Kab. Tangerang. All rights reserved.
-            </p>
+            <form action="https://formspree.io/f/moqwvdrg" method="POST" className="space-y-4 p-6 bg-zinc-900/80 border border-gray-800 rounded-2xl">
+              <input type="text" name="name" required placeholder="Nama lengkap" className="w-full px-4 py-3 bg-zinc-800 border border-gray-700 rounded-lg placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500" />
+              <input type="email" name="email" required placeholder="Email" className="w-full px-4 py-3 bg-zinc-800 border border-gray-700 rounded-lg placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500" />
+              <textarea name="message" rows="4" required placeholder="Pesan Anda" className="w-full px-4 py-3 bg-zinc-800 border border-gray-700 rounded-lg placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500" />
+              <button type="submit" className="w-full px-4 py-3 bg-sky-500 hover:bg-blue-600 text-white font-bold rounded-lg transition">Kirim Pesan</button>
+            </form>
           </div>
+          <p className="text-center text-sm text-gray-500 mt-8">&copy; {new Date().getFullYear()} Tim Developer Web SMKN 11 Kab. Tangerang. All rights reserved.</p>
         </FadeInSection>
       </div>
     </section>
@@ -702,16 +832,25 @@ const Contact = () => {
 
 // ========== MAIN APP ==========
 export default function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const appBg = darkMode ? 'bg-slate-950 text-slate-100' : 'bg-black text-white';
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+  }, [darkMode]);
+
   return (
-    <div className="bg-black text-white overflow-x-hidden font-sans">
-      <Navbar />
+    <div className={`${appBg} overflow-x-hidden font-sans`}>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <main>
         <Hero />
         <About />
+        <Skills />
         <Team />
+        <CaseStudies />
+        <Testimonials />
         <Portfolio />
         <Presentation />
-        <Documentation />
         <Contact />
       </main>
     </div>
